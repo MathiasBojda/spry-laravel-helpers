@@ -74,7 +74,7 @@ class Response
      *
      * @return json
      */
-    private function jsonRenderData($data = null, $status = null)
+    private static function jsonRenderData($data = null, $status = null)
     {
         if ($data) {
             $obj = $data['data'];
