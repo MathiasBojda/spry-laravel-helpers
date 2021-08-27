@@ -63,7 +63,7 @@ class Response
      */
     public static function jsonNoContent()
     {
-        return self::sonRenderData(null, 204);
+        return self::jsonRenderData(null, 204);
     }
  
     /**
