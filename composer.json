@@ -1,0 +1,19 @@
+{
+    "name": "spry/laravel",
+    "description": "Classes and methods to have consistency acress spry laravel projects",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Spry\\Laravel\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mathias Bojda",
+            "email": "mb@spry.dk"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
