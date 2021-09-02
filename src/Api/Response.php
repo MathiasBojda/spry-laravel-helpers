@@ -6,6 +6,55 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class Response
 {
+    public static $static_response_map = [
+        
+        500 => [
+            'status' => 'error',
+            'data'   => [
+                'message' => 'Internal Server Error',
+                'error_code' => 'exception'
+            ]
+        ],
+
+        200 => [
+            'status' => 'success',
+            'data' => null,
+        ],
+
+        400 => [
+            'status' => 'error',
+            'data'   => [
+                'message' => 'Not specified',
+                'error_code' => 'not_specified'
+            ]
+        ],
+
+        403 => [
+            'status' => 'error',
+             'data'   => [
+                 'message' => 'Forbidden',
+                 'error_code' => 'forbidden'
+             ]
+        ],
+
+        404 => [
+            'status' => 'error',
+            'data'   => [
+                'message' => 'Not Found',
+                'error_code' => 'not_found'
+            ]
+        ],
+
+        401 => [
+            'status' => 'error',
+            'data'   => [
+                'message' => 'Unauthorized',
+                'error_code' => 'unauthorized'
+            ]
+        ]
+
+    ];
+
     // 200: Ok
     /**
      * jsonOk
@@ -17,53 +66,75 @@ class Response
      */
     public static function jsonOk($data = null, $status = 200)
     {
-        $d = array(
-             'status' => 'success',
-             'data'   => $data,
-         );
+        $d = self::$static_response_map[200];
+        $d['data'] = $data;
         return self::jsonRenderData($d, $status);
     }
- 
-    // 201: Created
+
+
     /**
-     * jsonCreated
+     * jsonInternalServerError
      *
-     * @param null $data
-     *
-     * @return json
+     * @return void
      */
-    public static function jsonCreated($data = null)
+    public static function jsonInternalServerError()
     {
-        $d = null;
-        if ($data) {
-            $d = array(
-                 'status' => 'success',
-                 'data'   => $data,
-             );
-        }
-        return self::jsonRenderData($d, 201);
+        $http_status = 500;
+        $d = self::$static_response_map[$http_status];
+        return self::jsonRenderData($d, $http_status);
     }
- 
-    // 202: Accepted
+    
+
+
     /**
-     * jsonAccepcted
+     * jsonBadRequest
      *
-     * @return json
+     * @return void
      */
-    public static function jsonAccepcted()
+    public static function jsonBadRequest()
     {
-        return self::jsonRenderData(null, 202);
+        $http_status = 400;
+        $d = self::$static_response_map[$http_status];
+        return self::jsonRenderData($d, $http_status);
     }
- 
-    // 204: No content
+
     /**
-     * jsonNoContent
+     * jsonInsufficientRights
      *
-     * @return json
+     * @return void
      */
-    public static function jsonNoContent()
+    public static function jsonInsufficientRights()
     {
-        return self::jsonRenderData(null, 204);
+        $http_status = 403;
+        $d = self::$static_response_map[$http_status];
+        return self::jsonRenderData($d, $http_status);
+    }
+
+
+    
+    /**
+     * jsonNotFound
+     *
+     * @return void
+     */
+    public static function jsonNotFound()
+    {
+        $http_status = 404;
+        $d = self::$static_response_map[$http_status];
+        return self::jsonRenderData($d, $http_status);
+    }
+
+    
+    /**
+     * jsonUnauthorized
+     *
+     * @return void
+     */
+    public static function jsonUnauthorized()
+    {
+        $http_status = 401;
+        $d = self::$static_response_map[$http_status];
+        return self::jsonRenderData($d, $http_status);
     }
  
     /**
