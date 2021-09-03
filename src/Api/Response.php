@@ -123,7 +123,6 @@ class Response
         $d = self::$static_response_map[$http_status];
         return self::jsonRenderData($d, $http_status);
     }
-
     
     /**
      * jsonUnauthorized
